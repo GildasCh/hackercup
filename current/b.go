@@ -45,15 +45,15 @@ func solve(N, K int, A, B []int) string {
 	pre := preOrder(0, N, A, B)
 	post := postOrder(0, N, A, B)
 
-	fmt.Fprintf(os.Stderr, "pre: %v\n", pre)
-	fmt.Fprintf(os.Stderr, "post: %v\n", post)
+	// fmt.Fprintf(os.Stderr, "pre: %v\n", pre)
+	// fmt.Fprintf(os.Stderr, "post: %v\n", post)
 
 	preToPost := make(map[int]int)
 	for i := range pre {
 		preToPost[pre[i]] = post[i]
 	}
 
-	fmt.Fprintf(os.Stderr, "preToPost: %v\n", preToPost)
+	// fmt.Fprintf(os.Stderr, "preToPost: %v\n", preToPost)
 
 	labels := make(map[int]int)
 
@@ -72,8 +72,8 @@ func solve(N, K int, A, B []int) string {
 			return "Impossible"
 		}
 
-		fmt.Fprintf(os.Stderr, "Found unset: %d\n", unset)
-		fmt.Fprintf(os.Stderr, "Setting label %d with %d\n", unset, k)
+		// fmt.Fprintf(os.Stderr, "Found unset: %d\n", unset)
+		// fmt.Fprintf(os.Stderr, "Setting label %d with %d\n", unset, k)
 		labels[unset] = k
 
 		// set all labels that need to be equal
@@ -82,7 +82,7 @@ func solve(N, K int, A, B []int) string {
 			if _, ok := labels[next]; ok {
 				break
 			}
-			fmt.Fprintf(os.Stderr, "Setting label %d with %d\n", next, k)
+			// fmt.Fprintf(os.Stderr, "Setting label %d with %d\n", next, k)
 			labels[next] = k
 
 			next = preToPost[next]

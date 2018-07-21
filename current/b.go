@@ -49,14 +49,11 @@ func solve(N, K int, A, B []int) string {
 	fmt.Fprintf(os.Stderr, "post: %v\n", post)
 
 	preToPost := make(map[int]int)
-	postToPre := make(map[int]int)
 	for i := range pre {
 		preToPost[pre[i]] = post[i]
-		postToPre[post[i]] = pre[i]
 	}
 
 	fmt.Fprintf(os.Stderr, "preToPost: %v\n", preToPost)
-	fmt.Fprintf(os.Stderr, "postToPre: %v\n", postToPre)
 
 	labels := make(map[int]int)
 
@@ -88,14 +85,6 @@ func solve(N, K int, A, B []int) string {
 			fmt.Fprintf(os.Stderr, "Setting label %d with %d\n", next, k)
 			labels[next] = k
 
-			next = postToPre[next]
-
-			if _, ok := labels[next]; ok {
-				break
-			}
-			fmt.Fprintf(os.Stderr, "Setting label %d with %d\n", next, k)
-			labels[next] = k
-
 			next = preToPost[next]
 		}
 	}
@@ -103,7 +92,11 @@ func solve(N, K int, A, B []int) string {
 	res := ""
 
 	for i := 1; i <= N; i++ {
-		res += strconv.Itoa(labels[i]) + " "
+		l := labels[i]
+		if l == 0 {
+			l = 1
+		}
+		res += strconv.Itoa(l) + " "
 	}
 
 	res = strings.TrimSuffix(res, " ")
